@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbownies Store - Premium App Catalog</title>
+    <meta name="description"
+        content="Rainbownies Store - Jual akun premium streaming, music, design, productivity, dan games dengan harga terjangkau.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fantasy: '#F7F3ED',
+                        vanilla: '#EFD8D6',
+                        rose: '#DBA1A2',
+                        'rose-dark': '#C88A8B',
+                        silver: '#C2C6B9',
+                        tobago: '#422B23',
+                    },
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #F7F3ED;
+            background-image: url('flower-bg.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: 300px;
+            color: #422B23;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(247, 243, 237, 0.85);
+            z-index: -1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F7F3ED;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #DBA1A2;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C88A8B;
+        }
+
+        /* Category Button Active State */
+        .category-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .category-btn.active {
+            background-color: #DBA1A2;
+            color: white;
+            border-color: #DBA1A2;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(219, 161, 162, 0.4);
+        }
+
+        .category-btn:hover:not(.active) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 43, 35, 0.1);
+        }
+
+        /* Card Hover Effect */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(66, 43, 35, 0.15);
+        }
+
+        /* Price Tag Hover */
+        .price-tag {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(219, 161, 162, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .price-tag:hover::before {
+            left: 100%;
+        }
+
+        .price-tag:hover {
+            background-color: #EFD8D6;
+            border-color: #DBA1A2;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(219, 161, 162, 0.3);
+        }
+
+        .price-tag:active {
+            transform: scale(0.98);
+        }
+
+        /* Order Button */
+        .order-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .order-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .order-btn:hover {
+            background-color: #C88A8B;
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(219, 161, 162, 0.5);
+        }
+
+        .order-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Package Section */
+        .package-section {
+            background: linear-gradient(135deg, rgba(239, 216, 214, 0.3) 0%, rgba(247, 243, 237, 0.5) 100%);
+            transition: all 0.3s ease;
+        }
+
+        .package-section:hover {
+            background: linear-gradient(135deg, rgba(239, 216, 214, 0.5) 0%, rgba(247, 243, 237, 0.7) 100%);
+        }
+
+        /* Fade In Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Pulse Animation for Logo */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .logo-pulse:hover {
+            animation: pulse 0.6s ease-in-out;
+        }
+
+        /* Bounce Animation */
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bounce:hover {
+            animation: bounce 0.8s ease;
+        }
+
+        /* Floating Animation for WhatsApp Button */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-5px) rotate(2deg);
+            }
+
+            75% {
+                transform: translateY(-5px) rotate(-2deg);
+            }
+        }
+
+        .float-btn {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .float-btn:hover {
+            animation: none;
+            transform: scale(1.1);
+        }
+
+        /* Glow Effect */
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(219, 161, 162, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(219, 161, 162, 0.8);
+            }
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        /* Search Input */
+        .search-input {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #DBA1A2;
+            box-shadow: 0 0 0 4px rgba(219, 161, 162, 0.2);
+            transform: scale(1.02);
+        }
+
+        /* Typing Effect for Header */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Shimmer Loading */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, #EFD8D6 25%, #F7F3ED 50%, #EFD8D6 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        /* Header Animation */
+        header {
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(66, 43, 35, 0.1);
+        }
+
+
+
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-5px);
+            background: #422B23;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .ripple:active::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Counter Animation */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .count-animate {
+            animation: countUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-vanilla backdrop-blur-md border-b border-rose/30">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 logo-pulse cursor-pointer">
+                    <span class="text-2xl bounce">🍓</span>
+                    <span class="text-xl font-semibold text-rose">Rainbownies</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-8 md:py-12 text-center">
+        <div class="max-w-6xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-tobago mb-3" style="font-family: 'Georgia', serif;">
+                Rainbownies Store
+            </h1>
+            <p class="text-tobago/70 mb-2">
+                haloww 🍓🍰 ° ₒ ♡ ⋆｡˚ bing bong!
+            </p>
+            <p class="text-rose font-semibold mb-6">
+                RAINBOWNIES PRICELIST is here! 🌸✨
+            </p>
+
+            <!-- Search Bar -->
+            <div class="max-w-md mx-auto mb-8">
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-silver">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Cari aplikasi di sini..."
+                        class="search-input w-full py-3 pl-12 pr-4 rounded-full border-2 border-silver/50 bg-white text-tobago placeholder:text-silver transition-all">
+                </div>
+            </div>
+
+            <!-- Category Navigation -->
+            <div class="flex flex-wrap justify-center gap-2 md:gap-3" id="categoryNav">
+                <button
+                    class="category-btn active px-5 py-2 rounded-full border-2 border-silver/50 bg-white font-medium transition-all hover:border-rose"
+                    data-category="all">
+                    All
+                </button>
+                <button
+                    class="category-btn px-5 py-2 rounded-full border-2 border-silver/50 bg-white font-medium transition-all hover:border-rose"
+                    data-category="streaming">
+                    Streaming
+                </button>
+                <button
+                    class="category-btn px-5 py-2 rounded-full border-2 border-silver/50 bg-white font-medium transition-all hover:border-rose"
+                    data-category="music">
+                    Music
+                </button>
+                <button
+                    class="category-btn px-5 py-2 rounded-full border-2 border-silver/50 bg-white font-medium transition-all hover:border-rose"
+                    data-category="editing">
+                    Editing
+                </button>
+                <button
+                    class="category-btn px-5 py-2 rounded-full border-2 border-silver/50 bg-white font-medium transition-all hover:border-rose"
+                    data-category="ai-tools">
+                    AI Tools
+                </button>
+                <button
+                    class="category-btn px-5 py-2 rounded-full border-2 border-silver/50 bg-white font-medium transition-all hover:border-rose"
+                    data-category="study">
+                    Study & Others
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="pb-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Products will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-16">
+                <span class="text-6xl mb-4 block">🔍</span>
+                <h3 class="text-xl font-semibold text-tobago mb-2">Produk tidak ditemukan</h3>
+                <p class="text-tobago/60">Coba cari dengan kata kunci lain</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-vanilla border-t border-rose/30">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-tobago/65 text-sm">
+                © 2026 Rainbownies Store. All rights reserved.
+            </p>
+            <p class="text-tobago/50 text-xs mt-2">
+                Made with 💖 for you
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- Back to Top Button -->
+    <button id="backToTop"
+        class="fixed bottom-32 right-8 z-50 w-12 h-12 rounded-full bg-rose text-white shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-rose-dark hover:scale-110"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑
+    </button>
+
+    <script>
+        // ============================================
+        // DATA PRODUK - Edit data di sini untuk update produk
+        // ============================================
+        const productsData = [
+            {
+                id: 1,
+                name: "Netflix",
+                category: "streaming",
+                description: "Premium plan, full warranty!",
+                packages: [
+                    {
+                        name: "Sharing 1U",
+                        options: [
+                            { duration: "1 hari", price: "6k" },
+                            { duration: "3 hari", price: "9k" },
+                            { duration: "7 hari", price: "13k" },
+                            { duration: "14 hari", price: "28k" },
+                            { duration: "1 bulan", price: "38k" },
+                            { duration: "2 bulan", price: "68k" },
+                            { duration: "3 bulan", price: "98k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing 2U",
+                        options: [
+                            { duration: "1 bulan", price: "28k" },
+                            { duration: "2 bulan", price: "40k" },
+                            { duration: "3 bulan", price: "58k" }
+                        ]
+                    },
+                    {
+                        name: "Semi Private",
+                        options: [
+                            { duration: "1 bulan", price: "44k" },
+                            { duration: "2 bulan", price: "85k" },
+                            { duration: "3 bulan", price: "115k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "Viu",
+                category: "streaming",
+                description: "Private account, all device.",
+                packages: [
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 hari", price: "2k" },
+                            { duration: "3 hari", price: "4k" },
+                            { duration: "7 hari", price: "5k" },
+                            { duration: "1 bulan", price: "7k" },
+                            { duration: "2 bulan", price: "10k" },
+                            { duration: "3 bulan", price: "12k" },
+                            { duration: "6 bulan", price: "18k" },
+                            { duration: "1 tahun", price: "22k" },
+                            { duration: "2 tahun", price: "28k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "LokLok",
+                category: "streaming",
+                description: "Premium streaming, all device.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 hari", price: "4k" },
+                            { duration: "6 hari", price: "10k" },
+                            { duration: "11 hari", price: "13k" },
+                            { duration: "17 hari", price: "18k" },
+                            { duration: "1 bulan", price: "25k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 hari", price: "6k" },
+                            { duration: "6 hari", price: "13k" },
+                            { duration: "11 hari", price: "19k" },
+                            { duration: "17 hari", price: "25k" },
+                            { duration: "1 bulan", price: "55k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                name: "Disney+",
+                category: "streaming",
+                description: "Premium plan, sharing & private available.",
+                packages: [
+                    {
+                        name: "Sharing 3U",
+                        options: [
+                            { duration: "1 hari", price: "8k" },
+                            { duration: "3 hari", price: "10k" },
+                            { duration: "7 hari", price: "18k" },
+                            { duration: "1 bulan", price: "33k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing 6U",
+                        options: [
+                            { duration: "1 hari", price: "7k" },
+                            { duration: "3 hari", price: "8k" },
+                            { duration: "5 hari", price: "10k" },
+                            { duration: "7 hari", price: "17k" },
+                            { duration: "1 bulan", price: "30k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                name: "YouTube",
+                category: "streaming",
+                description: "Premium plan, bebas iklan, YouTube Music included.",
+                packages: [
+                    {
+                        name: "FamPlan",
+                        options: [
+                            { duration: "1 bulan", price: "8k" },
+                            { duration: "2 bulan", price: "12k" },
+                            { duration: "3 bulan", price: "13k" },
+                            { duration: "4 bulan", price: "17k" },
+                            { duration: "6 bulan", price: "22k" }
+                        ]
+                    },
+                    {
+                        name: "IndPlan",
+                        options: [
+                            { duration: "1 bulan", price: "15k" },
+                            { duration: "44 hari fullgar", price: "23k" },
+                            { duration: "3 bulan nogar", price: "38k" },
+                            { duration: "3 bulan fullgar", price: "45k" }
+                        ]
+                    },
+                    {
+                        name: "MixPlan",
+                        options: [
+                            { duration: "3 bulan", price: "22k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 6,
+                name: "WeTV",
+                category: "streaming",
+                description: "Premium VIP access.",
+                packages: [
+                    {
+                        name: "Sharing 6U",
+                        options: [
+                            { duration: "1 hari", price: "4k" },
+                            { duration: "3 hari", price: "6k" },
+                            { duration: "7 hari", price: "8k" },
+                            { duration: "1 bulan", price: "11k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing 3U",
+                        options: [
+                            { duration: "1 bulan", price: "17k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "38k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 7,
+                name: "Vision+",
+                category: "streaming",
+                description: "Sports & PayTV packages available.",
+                packages: [
+                    {
+                        name: "PayTV Sharing 3U",
+                        options: [
+                            { duration: "1 hari", price: "4k" },
+                            { duration: "3 hari", price: "6k" },
+                            { duration: "7 hari", price: "9k" },
+                            { duration: "1 bulan", price: "14k" }
+                        ]
+                    },
+                    {
+                        name: "Sports Sharing 2U",
+                        options: [
+                            { duration: "1 bulan", price: "22k" }
+                        ]
+                    },
+                    {
+                        name: "Sports Private",
+                        options: [
+                            { duration: "1 bulan", price: "38k" }
+                        ]
+                    },
+                    {
+                        name: "PayTV Sharing 2U",
+                        options: [
+                            { duration: "7 hari", price: "9k" },
+                            { duration: "1 bulan", price: "18k" }
+                        ]
+                    },
+                    {
+                        name: "PayTV Private",
+                        options: [
+                            { duration: "7 hari", price: "14k" },
+                            { duration: "1 bulan", price: "38k" }
+                        ]
+                    },
+                    {
+                        name: "Ultimate Sharing",
+                        options: [
+                            { duration: "1 hari", price: "8k" },
+                            { duration: "3 hari", price: "12k" },
+                            { duration: "7 hari", price: "15k" }
+                        ]
+                    },
+                    {
+                        name: "Ultimate Private",
+                        options: [
+                            { duration: "1 hari", price: "12k" },
+                            { duration: "3 hari", price: "15k" },
+                            { duration: "7 hari", price: "20k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing 2U",
+                        options: [
+                            { duration: "1 bulan", price: "35k" }
+                        ]
+                    },
+                    {
+                        name: "Private 2U",
+                        options: [
+                            { duration: "1 bulan", price: "55k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 8,
+                name: "Vidio",
+                category: "streaming",
+                description: "Platinum package, all device support.",
+                packages: [
+                    {
+                        name: "Sharing 2U - All Device",
+                        options: [
+                            { duration: "1 hari", price: "7k" },
+                            { duration: "3 hari", price: "10k" },
+                            { duration: "7 hari", price: "14k" },
+                            { duration: "1 bulan", price: "27k" }
+                        ]
+                    },
+                    {
+                        name: "Private All Device",
+                        options: [
+                            { duration: "1 hari", price: "10k" },
+                            { duration: "3 hari", price: "13k" },
+                            { duration: "7 hari", price: "19k" },
+                            { duration: "1 bulan", price: "40k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 9,
+                name: "Moviebox",
+                category: "streaming",
+                description: "Full access to all movies.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "8k" },
+                            { duration: "3 bulan", price: "12k" },
+                            { duration: "1 tahun", price: "18k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 10,
+                name: "Amazon Prime",
+                category: "streaming",
+                description: "Prime Video streaming.",
+                packages: [
+                    {
+                        name: "Sharing 5U",
+                        options: [
+                            { duration: "1 hari", price: "4k" },
+                            { duration: "3 hari", price: "7k" },
+                            { duration: "7 hari", price: "9k" },
+                            { duration: "1 bulan", price: "12k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing 3U",
+                        options: [
+                            { duration: "1 bulan", price: "18k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "25k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 11,
+                name: "Bstation Premium",
+                category: "streaming",
+                description: "Bilibili premium access.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "9k" },
+                            { duration: "3 bulan", price: "12k" },
+                            { duration: "1 tahun", price: "18k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "38k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 12,
+                name: "iQIYI",
+                category: "streaming",
+                description: "VIP premium access.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 hari", price: "4k" },
+                            { duration: "3 hari", price: "5k" },
+                            { duration: "7 hari", price: "8k" },
+                            { duration: "1 bulan", price: "12k" },
+                            { duration: "1 tahun", price: "22k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "38k" },
+                            { duration: "3 bulan", price: "60k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 13,
+                name: "HBO Max",
+                category: "streaming",
+                description: "HBO Max streaming premium.",
+                packages: [
+                    {
+                        name: "Sharing Standard 8U",
+                        options: [
+                            { duration: "7 hari", price: "10k" },
+                            { duration: "1 bulan", price: "12k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing Ultimate 7U",
+                        options: [
+                            { duration: "1 bulan", price: "23k" },
+                            { duration: "7 hari", price: "17k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 14,
+                name: "Apple Music",
+                category: "music",
+                description: "Apple Music premium subscription.",
+                packages: [
+                    {
+                        name: "Premium",
+                        options: [
+                            { duration: "1 bulan", price: "24k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 15,
+                name: "Spotify",
+                category: "music",
+                description: "Premium individual, bisa request region, full garansi.",
+                packages: [
+                    {
+                        name: "IndPlan",
+                        options: [
+                            { duration: "1 bulan", price: "24k" },
+                            { duration: "3 bulan", price: "47k" }
+                        ]
+                    },
+                    {
+                        name: "FamPlan",
+                        options: [
+                            { duration: "1 bulan", price: "25k" },
+                            { duration: "2 bulan", price: "42k" }
+                        ]
+                    },
+                    {
+                        name: "Ind-Student",
+                        options: [
+                            { duration: "1 bulan", price: "20k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 16,
+                name: "Canva",
+                category: "editing",
+                description: "Design tool premium, full fitur.",
+                packages: [
+                    {
+                        name: "Canva Head",
+                        options: [
+                            { duration: "1 bulan", price: "13k" }
+                        ]
+                    },
+                    {
+                        name: "Canva Pro",
+                        options: [
+                            { duration: "1 hari", price: "2k" },
+                            { duration: "3 hari", price: "3k" },
+                            { duration: "7 hari", price: "7k" },
+                            { duration: "1 bulan", price: "10k" },
+                            { duration: "2 bulan", price: "12k" },
+                            { duration: "3 bulan", price: "15k" },
+                            { duration: "4 bulan", price: "18k" },
+                            { duration: "5 bulan", price: "20k" },
+                            { duration: "6 bulan", price: "25k" },
+                            { duration: "1 tahun", price: "35k" }
+                        ]
+                    },
+                    {
+                        name: "Lifetime",
+                        options: [
+                            { duration: "Garansi 6 bulan", price: "28k" },
+                            { duration: "Garansi 1 tahun", price: "38k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 17,
+                name: "Capcut Pro",
+                category: "editing",
+                description: "Unlock semua fitur premium, template exclusive.",
+                packages: [
+                    {
+                        name: "Sharing 2U",
+                        options: [
+                            { duration: "7 hari", price: "9k" },
+                            { duration: "1 bulan", price: "13k" }
+                        ]
+                    },
+                    {
+                        name: "Sharing 3U",
+                        options: [
+                            { duration: "1 hari", price: "3k" },
+                            { duration: "3 hari", price: "7k" },
+                            { duration: "7 hari", price: "10k" },
+                            { duration: "1 bulan", price: "12k" },
+                            { duration: "3 bulan", price: "34k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 hari", price: "7k" },
+                            { duration: "3 hari", price: "13k" },
+                            { duration: "7 hari", price: "14k" },
+                            { duration: "14 hari", price: "15k" },
+                            { duration: "1 bulan", price: "28k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 18,
+                name: "Capcut Standar",
+                category: "editing",
+                description: "Capcut standar premium version.",
+                packages: [
+                    {
+                        name: "Sharing 2U",
+                        options: [
+                            { duration: "3 hari", price: "12k" },
+                            { duration: "7 hari", price: "18k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "3 hari", price: "17k" },
+                            { duration: "7 hari", price: "20k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 19,
+                name: "Wink",
+                category: "editing",
+                description: "Premium video editor.",
+                packages: [
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "7 hari", price: "16k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 20,
+                name: "Meitu",
+                category: "editing",
+                description: "Photo & video editor premium.",
+                packages: [
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "7 hari Andro Only", price: "14k" },
+                            { duration: "21 hari Bisa IOS/Android", price: "34k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 21,
+                name: "Alight Motion",
+                category: "editing",
+                description: "Premium video editor, no watermark.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "5k" },
+                            { duration: "1 tahun", price: "12k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "10k" },
+                            { duration: "1 tahun", price: "15k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 22,
+                name: "Picsart",
+                category: "editing",
+                description: "Photo & video editor premium.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "7 hari", price: "6k" },
+                            { duration: "1 bulan", price: "10k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "7 hari", price: "9k" },
+                            { duration: "1 bulan", price: "20k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 23,
+                name: "ChatGPT Plus",
+                category: "ai-tools",
+                description: "GPT-4 access, priority response, plugin support.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "7 hari", price: "15k" },
+                            { duration: "1 bulan", price: "27k" },
+                            { duration: "3 bulan", price: "60k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "64k" },
+                            { duration: "3 bulan", price: "180k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 24,
+                name: "Claude AI",
+                category: "ai-tools",
+                description: "Claude AI premium access.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "7 hari", price: "25k" },
+                            { duration: "1 bulan", price: "68k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 25,
+                name: "ChatGPT Go",
+                category: "ai-tools",
+                description: "ChatGPT mobile app premium.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "16k" },
+                            { duration: "1 tahun", price: "30k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 26,
+                name: "Perplexity",
+                category: "ai-tools",
+                description: "AI search engine premium.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "3 hari", price: "9k" },
+                            { duration: "7 hari", price: "12k" },
+                            { duration: "1 bulan", price: "18k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "35k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 27,
+                name: "BlackBox AI",
+                category: "ai-tools",
+                description: "AI coding assistant premium.",
+                packages: [
+                    {
+                        name: "Premium",
+                        options: [
+                            { duration: "1 bulan", price: "68k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 28,
+                name: "Gemini",
+                category: "ai-tools",
+                description: "Google Gemini Advanced.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "32k" },
+                            { duration: "12 bulan", price: "60k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 29,
+                name: "Duolingo Plus",
+                category: "study",
+                description: "Unlimited hearts, no ads, progress quiz.",
+                packages: [
+                    {
+                        name: "FamPlan",
+                        options: [
+                            { duration: "1 bulan", price: "12k" },
+                            { duration: "2 bulan", price: "22k" },
+                            { duration: "3 bulan", price: "32k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 30,
+                name: "Zoom",
+                category: "study",
+                description: "Zoom meeting premium.",
+                packages: [
+                    {
+                        name: "100P Sewa Link",
+                        options: [
+                            { duration: "1 jam", price: "4k" },
+                            { duration: "12 jam", price: "8k" },
+                            { duration: "1 hari", price: "14k" },
+                            { duration: "7 hari", price: "22k" }
+                        ]
+                    },
+                    {
+                        name: "100P Upgrade Zoom",
+                        options: [
+                            { duration: "7 hari", price: "24k" },
+                            { duration: "14 hari", price: "28k" },
+                            { duration: "1 bulan", price: "35k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 31,
+                name: "Scribd",
+                category: "study",
+                description: "Ebook & audiobook unlimited.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "12k" },
+                            { duration: "2 bulan", price: "15k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "18k" },
+                            { duration: "2 bulan", price: "25k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 32,
+                name: "iLovePDF",
+                category: "study",
+                description: "PDF tools premium.",
+                packages: [
+                    {
+                        name: "Sharing",
+                        options: [
+                            { duration: "1 bulan", price: "12k" }
+                        ]
+                    },
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "18k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 33,
+                name: "GetContact",
+                category: "study",
+                description: "Caller ID & spam blocker.",
+                packages: [
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "16k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 34,
+                name: "CamScanner",
+                category: "study",
+                description: "Document scanner premium.",
+                packages: [
+                    {
+                        name: "Private",
+                        options: [
+                            { duration: "1 bulan", price: "14k" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 35,
+                name: "LinkedIn",
+                category: "study",
+                description: "LinkedIn Premium access.",
+                packages: [
+                    {
+                        name: "Premium",
+                        options: [
+                            { duration: "1 bulan", price: "35k" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Nomor WhatsApp Toko (ganti dengan nomor Anda)
+        const whatsappNumber = "+6287823884973";
+
+        // ============================================
+        // FUNGSI RENDER PRODUK
+        // ============================================
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (products.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = products.map((product, index) => `
+                <div class="product-card bg-white rounded-3xl border border-silver/30 overflow-hidden fade-in" style="animation-delay: ${index * 0.1}s">
+                    <!-- Product Header -->
+                    <div class="p-6 pb-4 text-center border-b border-silver/20">
+                        <h2 class="text-2xl font-bold text-tobago" style="font-family: 'Georgia', serif;">
+                            ${product.name}
+                        </h2>
+                    </div>
+
+                    <!-- Packages -->
+                    <div class="p-4">
+                        ${product.packages.map(pkg => `
+                            <div class="package-section rounded-2xl p-4 mb-3 last:mb-0">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="text-rose">🎀</span>
+                                    <h3 class="font-semibold text-rose">${pkg.name}</h3>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    ${pkg.options.map(opt => `
+                                        <button 
+                                            onclick="orderViaWhatsApp('${product.name}', '${pkg.name}', '${opt.duration}', '${opt.price}')"
+                                            class="price-tag flex-1 min-w-[calc(50%-0.25rem)] px-3 py-2 bg-white rounded-xl border border-silver/50 text-sm text-tobago hover:cursor-pointer"
+                                        >
+                                            <span class="font-medium">${opt.duration}:</span> 
+                                            <span class="text-rose font-semibold">${opt.price}</span>
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+
+                        <!-- Order Button -->
+                        <button 
+                            onclick="orderViaWhatsApp('${product.name}', '', '', '')"
+                            class="order-btn w-full mt-4 py-3 bg-rose text-white rounded-full font-semibold shadow-lg shadow-rose/30"
+                        >
+                            Order via WhatsApp 💬
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // FUNGSI ORDER VIA WHATSAPP
+        // ============================================
+        function orderViaWhatsApp(appName, packageName, duration, price) {
+            let message = "";
+
+            if (packageName && duration && price) {
+                message = `Halo Kak, saya mau order *${appName}* paket *${packageName}* durasi *${duration}* seharga *${price}*. Apakah ready?`;
+            } else {
+                message = `Halo Kak, saya mau tanya-tanya tentang *${appName}*. Apakah ready?`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappURL, '_blank');
+        }
+
+        // ============================================
+        // FUNGSI FILTER KATEGORI
+        // ============================================
+        function filterByCategory(category) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+
+            let filtered = productsData;
+            if (category !== 'all') {
+                filtered = productsData.filter(p => p.category === category);
+            }
+
+            // Also apply search filter if there's a search term
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.description.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            renderProducts(filtered);
+        }
+
+        // ============================================
+        // FUNGSI SEARCH
+        // ============================================
+        function searchProducts(term) {
+            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+
+            let filtered = productsData;
+
+            // Apply category filter first
+            if (activeCategory !== 'all') {
+                filtered = filtered.filter(p => p.category === activeCategory);
+            }
+
+            // Then apply search filter
+            if (term) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(term.toLowerCase()) ||
+                    p.description.toLowerCase().includes(term.toLowerCase())
+                );
+            }
+
+            renderProducts(filtered);
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial render
+            renderProducts(productsData);
+
+            // Category navigation
+            document.getElementById('categoryNav').addEventListener('click', (e) => {
+                if (e.target.classList.contains('category-btn')) {
+                    filterByCategory(e.target.dataset.category);
+                }
+            });
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchProducts(e.target.value);
+            });
+
+            // Dark mode toggle
+            document.getElementById('darkModeToggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+            });
+
+            // Animate cards on scroll
+            const observeCards = () => {
+                const cards = document.querySelectorAll('.product-card');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, index * 100);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                cards.forEach(card => observer.observe(card));
+            };
+            observeCards();
+
+            // Header shadow on scroll
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                const backToTop = document.getElementById('backToTop');
+
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                    backToTop.classList.remove('opacity-0', 'invisible');
+                    backToTop.classList.add('opacity-100', 'visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTop.classList.add('opacity-0', 'invisible');
+                    backToTop.classList.remove('opacity-100', 'visible');
+                }
+            });
+
+            // Add ripple effect to category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.add('ripple');
+            });
+
+            // Re-observe cards after filtering
+            const originalRender = renderProducts;
+            window.renderProducts = function (products) {
+                originalRender(products);
+                setTimeout(observeCards, 100);
+            };
+        });
+    </script>
+</body>
+
+</html>
