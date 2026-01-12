@@ -44,14 +44,26 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #F7F3ED;
-            background-image: url('flower-bg.png');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-attachment: fixed;
-            background-size: 300px;
+            background: linear-gradient(135deg, #F7F3ED 0%, #fdf5f8 25%, #F7F3ED 50%, #EFD8D6 75%, #F7F3ED 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: #422B23;
             position: relative;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         body::before {
@@ -61,8 +73,40 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(247, 243, 237, 0.85);
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(219, 161, 162, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(219, 161, 162, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 40% 40%, rgba(239, 216, 214, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 90% 90%, rgba(219, 161, 162, 0.12) 0%, transparent 35%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(219, 161, 162, 0.08) 2px, transparent 2px),
+                radial-gradient(circle at 90% 60%, rgba(219, 161, 162, 0.06) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 90%, rgba(219, 161, 162, 0.07) 1px, transparent 1px);
+            background-size: 80px 80px, 60px 60px, 100px 100px;
             z-index: -1;
+            pointer-events: none;
+            animation: floatDots 20s linear infinite;
+        }
+
+        @keyframes floatDots {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-20px);
+            }
         }
 
         /* Custom Scrollbar */
@@ -421,6 +465,41 @@
 </head>
 
 <body class="min-h-screen">
+    <!-- Floating Background Decorations -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Floating Emojis - scattered across the page -->
+        <span class="absolute top-[10%] left-[5%] text-2xl opacity-20 animate-bounce"
+            style="animation-delay: 0.3s; animation-duration: 3s;">🍓</span>
+        <span class="absolute top-[15%] right-[8%] text-xl opacity-15 animate-bounce"
+            style="animation-delay: 0.8s; animation-duration: 4s;">✨</span>
+        <span class="absolute top-[25%] left-[15%] text-lg opacity-15 animate-pulse"
+            style="animation-delay: 1.2s;">💖</span>
+        <span class="absolute top-[30%] right-[20%] text-2xl opacity-20 animate-bounce"
+            style="animation-delay: 0.5s; animation-duration: 3.5s;">🍓</span>
+        <span class="absolute top-[45%] left-[3%] text-lg opacity-15 animate-pulse"
+            style="animation-delay: 2s;">♡</span>
+        <span class="absolute top-[50%] right-[5%] text-xl opacity-20 animate-bounce"
+            style="animation-delay: 1s; animation-duration: 4s;">🍓</span>
+        <span class="absolute top-[60%] left-[12%] text-lg opacity-15 animate-bounce"
+            style="animation-delay: 1.5s; animation-duration: 3s;">✨</span>
+        <span class="absolute top-[65%] right-[15%] text-xl opacity-15 animate-pulse"
+            style="animation-delay: 0.7s;">💖</span>
+        <span class="absolute top-[75%] left-[8%] text-2xl opacity-20 animate-bounce"
+            style="animation-delay: 2s; animation-duration: 3.5s;">🍓</span>
+        <span class="absolute top-[80%] right-[10%] text-lg opacity-15 animate-bounce"
+            style="animation-delay: 0.4s; animation-duration: 4s;">✨</span>
+        <span class="absolute top-[85%] left-[20%] text-xl opacity-15 animate-pulse"
+            style="animation-delay: 1.8s;">♡</span>
+        <span class="absolute top-[90%] right-[25%] text-2xl opacity-20 animate-bounce"
+            style="animation-delay: 1.3s; animation-duration: 3s;">🍓</span>
+
+        <!-- Blurred glow circles -->
+        <div class="absolute top-[20%] left-[10%] w-32 h-32 bg-rose/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[40%] right-[5%] w-40 h-40 bg-rose/8 rounded-full blur-3xl"></div>
+        <div class="absolute top-[70%] left-[5%] w-36 h-36 bg-rose/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[60%] right-[15%] w-28 h-28 bg-vanilla rounded-full blur-2xl opacity-50"></div>
+    </div>
+
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-vanilla backdrop-blur-md border-b border-rose/30">
         <div class="max-w-6xl mx-auto px-4 py-4">
@@ -432,6 +511,73 @@
             </div>
         </div>
     </header>
+
+    <!-- S&K ORDER Section - Attention Banner -->
+    <section class="py-4 md:py-5 fade-in">
+        <div class="max-w-2xl mx-auto px-4">
+            <div class="bg-gradient-to-br from-rose/10 via-vanilla to-rose/5 backdrop-blur-sm border-2 border-rose/50 rounded-2xl p-4 md:p-5 shadow-xl relative overflow-hidden"
+                style="background-image: linear-gradient(135deg, rgba(219,161,162,0.15) 0%, rgba(247,243,237,0.9) 25%, rgba(255,255,255,0.95) 50%, rgba(247,243,237,0.9) 75%, rgba(219,161,162,0.15) 100%); box-shadow: 0 8px 32px rgba(219,161,162,0.25), inset 0 1px 0 rgba(255,255,255,0.6);">
+
+                <!-- Animated Background Gradient -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-transparent via-rose/10 to-transparent animate-pulse opacity-50">
+                </div>
+
+                <!-- Decorative Elements - Circles -->
+                <div
+                    class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-rose/20 to-rose/5 rounded-full -translate-x-8 -translate-y-8 blur-sm">
+                </div>
+                <div
+                    class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-rose/20 to-rose/5 rounded-full translate-x-12 translate-y-12 blur-sm">
+                </div>
+                <div class="absolute top-1/2 right-0 w-12 h-12 bg-rose/10 rounded-full translate-x-6 blur-sm"></div>
+                <div class="absolute top-1/4 left-0 w-10 h-10 bg-rose/10 rounded-full -translate-x-5 blur-sm"></div>
+
+                <!-- Floating Emojis -->
+                <span class="absolute top-2 right-4 text-lg opacity-60 animate-bounce"
+                    style="animation-delay: 0.2s;">🍓</span>
+                <span class="absolute top-8 left-3 text-sm opacity-50 animate-bounce"
+                    style="animation-delay: 0.5s;">✨</span>
+                <span class="absolute bottom-6 right-8 text-sm opacity-50 animate-bounce"
+                    style="animation-delay: 0.8s;">💖</span>
+                <span class="absolute bottom-3 left-6 text-lg opacity-60 animate-bounce"
+                    style="animation-delay: 1s;">🍓</span>
+                <span class="absolute top-1/2 right-3 text-xs opacity-40 animate-pulse">♡</span>
+
+                <!-- Title -->
+                <h2 class="text-center text-xl md:text-2xl font-bold text-rose mb-4 relative">
+                    ꒰ 🍓 S&K ORDER 🍓 ꒱
+                </h2>
+
+                <!-- Content -->
+                <div class="relative text-tobago/85 text-xs md:text-sm leading-relaxed space-y-2">
+                    <p class="text-center font-medium text-rose-dark mb-3 text-sm">
+                        💬 sebelum order, mohon<br>
+                        dibaca & dipahami terlebih dahulu ya ♡
+                    </p>
+
+                    <ul class="space-y-1 pl-2">
+                        <li>• order via WhatsApp 💌</li>
+                        <li>• harga dapat berubah sewaktu-waktu tergantung demand</li>
+                        <li>• mohon konfirmasi stok terlebih dahulu, <span class="text-rose font-semibold">JANGAN
+                                langsung melakukan transfer ❗</span></li>
+                        <li>• payment dilakukan sebelum order diproses (untuk menghindari HNR)</li>
+                        <li>• proses app premium ± 5–60 menit</li>
+                        <li>• no rush & rude buyer (harap bersikap sopan)</li>
+                        <li>• klaim garansi hanya dapat dilakukan jika seluruh S&K dipatuhi sejak awal, termasuk
+                            pengiriman SS bukti login maksimal 1×24 jam setelah pembelian ❗</li>
+                        <li>• proses fixing garansi 0–3 hari, mohon menunggu sesuai estimasi</li>
+                        <li>• proses renewal maksimal 1×24 jam</li>
+                    </ul>
+
+                    <p class="text-center font-medium text-rose-dark mt-3 pt-3 border-t border-rose/20 text-sm">
+                        jika masih bingung,<br>
+                        boleh banget ditanyakan yaa ♡
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Hero Section -->
     <section class="py-8 md:py-12 text-center">
